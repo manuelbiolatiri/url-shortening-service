@@ -9,12 +9,9 @@ export class Domain extends BaseModel {
   @Column({ nullable: false })
   public url: string;
 
-  @Column({ unique: true, nullable: false })
+  @Column()
   public shortUrl: string;
 
   @Column({ type: 'enum', enum: RequestType, default: RequestType.SHORT })
-  public type: RequestType;
-
-  @Column({ type: 'jsonb' })
-  public device: object;
+  public requestType: RequestType;
 }

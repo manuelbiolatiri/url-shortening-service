@@ -4,8 +4,6 @@ import * as path from 'path';
 import {
   getOsEnv,
   getOsEnvOptional,
-  getOsPath,
-  getOsPaths,
   normalizePort,
   toBool,
   toNumber,
@@ -34,13 +32,6 @@ export const config = {
     scheme: getOsEnv('APP_SCHEME'),
     routePrefix: getOsEnv('APP_ROUTE_PREFIX'),
     port: normalizePort(process.env.PORT || getOsEnv('APP_PORT')),
-    dirs: {
-      migrations: getOsPaths('TYPEORM_MIGRATIONS'),
-      migrationsDir: getOsPath('TYPEORM_MIGRATIONS_DIR'),
-      entities: getOsPaths('TYPEORM_ENTITIES'),
-      entitiesDir: getOsPath('TYPEORM_ENTITIES_DIR'),
-      controllers: getOsPaths('CONTROLLERS'),
-    },
   },
   db: {
     url: getOsEnvOptional('TYPEORM_URL'),

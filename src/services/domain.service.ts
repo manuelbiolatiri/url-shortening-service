@@ -2,9 +2,9 @@ import { Domain } from '../models/domain';
 import { getRepository } from 'typeorm';
 
 class DomainService {
-  async create(payload: any) {
+  async create(payload: Partial<Domain>) {
     const repository = getRepository(Domain);
-    return await repository.save(payload);
+    return await repository.save(repository.create(payload));
   }
 }
 

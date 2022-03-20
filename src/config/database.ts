@@ -1,44 +1,43 @@
-import {
-  Connection,
-  ConnectionOptions,
-  createConnection,
-  getConnectionManager,
-} from 'typeorm';
+import { Connection, createConnection, getConnectionManager } from 'typeorm';
 import dotenv from 'dotenv';
 import { config } from './config';
 
 // Init environment
 dotenv.config();
 
-const options: ConnectionOptions = {
-  type: 'postgres',
-  name: 'default',
-  host: process.env.TYPEORM_HOST || 'localhost',
-  port: Number(process.env.TYPEORM_PORT) || 5432,
-  username: process.env.TYPEORM_USERNAME || 'postgres',
-  password: process.env.TYPEORM_PASSWORD || 'root',
-  database: process.env.TYPEORM_DATABASE || 'urlshortener',
-  migrations: config.app.dirs.migrations,
-  entities: config.app.dirs.entities,
-  cli: {
-    migrationsDir: config.app.dirs.migrationsDir,
-    entitiesDir: config.app.dirs.entitiesDir,
-  },
-  logging: false,
-  synchronize: false,
-};
+const options: any = {};
+
+if (config.db.url) {
+  options.url = config.db.url;
+} else {
+  options.host = config.db.host;
+  options.type = config.db.type;
+  options.port = config.db.port;
+  options.database = config.db.database;
+  options.username = config.db.username;
+  options.password = config.db.password;
+}
+
+if (config.db.ssl) {
+  options.ssl = config.db.ssl;
+  options.extra = {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  };
+}
 
 export const createDatabaseConnection = async (): Promise<Connection> => {
   const connection = await createConnection(
     Object.assign(options, {
       type: 'postgres',
-      migrations: config.app.dirs.migrations,
-      entities: config.app.dirs.entities,
+      migrations: ['src/migrations/**/*.ts'],
+      entities: ['src/models/**/*.ts'],
       synchronize: false,
       logging: false,
       cli: {
-        migrationsDir: config.app.dirs.migrationsDir,
-        entitiesDir: config.app.dirs.entitiesDir,
+        migrationsDir: 'src/migrations',
+        entitiesDir: 'src/models',
       },
     }),
   );
@@ -78,4 +77,8 @@ export const getDefaultConnection = async () => {
   return await initialize();
 };
 
-export default { initialize, getDefaultConnection };
+export const closeDatabase = (connection: Connection) => {
+  return connection.close();
+};
+
+export default { initialize, getDefaultConnection, closeDatabase };
