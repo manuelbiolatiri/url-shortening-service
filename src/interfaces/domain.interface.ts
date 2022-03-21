@@ -1,4 +1,7 @@
+import { RequestType } from '../enums/RequestType';
+
 export interface DomainInterface {
-  url: string;
-  type: string;
+  url?: string;
+  processedUrl?: string;
+  type?: RequestType;
 }
