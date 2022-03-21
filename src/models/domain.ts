@@ -10,7 +10,7 @@ export class Domain extends BaseModel {
   public url: string;
 
   @Column()
-  public shortUrl: string;
+  public processedUrl: string;
 
   @Column({ type: 'enum', enum: RequestType, default: RequestType.SHORT })
   public requestType: RequestType;

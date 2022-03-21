@@ -1,13 +1,12 @@
-import { LongUrl } from './../dtos/longUrl';
-import { ShortUrl } from './../dtos/shortUrl';
+import { Url } from '../dtos/url';
 import express from 'express';
 import controller from '../controllers/domain.controller';
 import validationMiddleware from '../middlewares/validation.middleware';
 
 const router = express.Router();
 
-router.post('/short', validationMiddleware(ShortUrl), controller.create);
+router.post('/short', validationMiddleware(Url), controller.createShortUrl);
 
-router.post('/long', validationMiddleware(LongUrl), controller.create);
+router.post('/long', validationMiddleware(Url), controller.createLongUrl);
 
 export default router;
