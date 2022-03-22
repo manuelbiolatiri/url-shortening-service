@@ -23,4 +23,4 @@
 - RUN npm run dev
 
 ## Tests Image
-![Image description](https://github.com/manuelbiolatiri/Parallax-Landing-Page/blob/master/src/tests/testSnapshot.jpeg)
+![Image description](https://github.com/manuelbiolatiri/url-shortening-service/blob/master/src/tests/testSnapshot.jpeg)
