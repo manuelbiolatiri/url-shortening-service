@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import { RequestType } from '../enums/RequestType';
 
 class DomainService {
-  async getOrCreate(payload: DomainInterface): Promise<Domain> {
+  async create(payload: DomainInterface): Promise<Domain> {
     let newUrl: string;
 
     const repository = getRepository(Domain);

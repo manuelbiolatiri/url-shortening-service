@@ -6,7 +6,7 @@ import { RequestType } from '../enums/RequestType';
 class DomainController {
   async createShortUrl(req: Request, res: Response) {
     try {
-      const domain = await domainService.getOrCreate({
+      const domain = await domainService.create({
         ...req.body,
         type: RequestType.SHORT,
       });
@@ -20,7 +20,7 @@ class DomainController {
 
   async createLongUrl(req: Request, res: Response) {
     try {
-      const domain = await domainService.getOrCreate({
+      const domain = await domainService.create({
         ...req.body,
         type: RequestType.LONG,
       });
@@ -38,7 +38,7 @@ class DomainController {
     try {
       const domain = await domainService.lookUp(processedUrl);
       if (!domain) return errorResponse(res, 'Not found', 404);
-      return res.redirect(domain.url);
+      return res.status(200).redirect(domain.url);
     } catch (error) {
       console.log(error);
       return errorResponse(res);

@@ -2,11 +2,11 @@
   "name": "urlshortner",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "npm run dist && node dist/src/index.js",
+    "start": "npm run build && node dist/index.js",
     "postinstall": "tsc",
-    "watch-node": "nodemon dist/src/index.js",
+    "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w",
     "build": "rm -rf dist && tsc",
     "dev": "npm run build && nodemon",
@@ -18,7 +18,8 @@
     "generate": "ts-node src/generator/index.ts",
     "prepare": "husky install",
     "lint": "eslint ./src/**/*.ts",
-    "format": "eslint ./src/**/*.ts --fix && npx prettier src --write"
+    "format": "eslint ./src/**/*.ts --fix && npx prettier src --write",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

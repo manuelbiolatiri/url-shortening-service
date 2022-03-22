@@ -16,16 +16,33 @@ afterAll(async () => {
 
 describe('POST /domain/short', () => {
   it('200: creates short url if parameters are valid', async () => {
-    const dummyUrl = 'https://test2.test';
+    const dummyUrl = 'https://test.test';
 
     const response = await request(app)
       .post('/domain/short')
       .send({ url: dummyUrl });
 
-    // const shortUrl = await domainRepository.find({ url: dummyUrl });
-    // expect(shortUrl).not.toBeNull();
-    // expect(response.statusCode).toEqual(200);
-    console.log('responseeee =>', response.body);
-    expect(200).toEqual(200);
+    expect(response.statusCode).toEqual(200);
+  });
+});
+
+describe('GET /lookup', () => {
+  it('200: looks up a valid url from the server', async () => {
+    const dummyProcessedUrl = 'E9JMT6Nm';
+
+    const response = await request(app).get(`/${dummyProcessedUrl}`);
+
+    // Redirects to an actual url processed by the server
+    expect(response.statusCode).toEqual(302);
+  });
+
+  it('404: fails if url is not found', async () => {
+    const dummyProcessedUrl = 'notfounddd';
+
+    const response = await request(app).get(`/${dummyProcessedUrl}`);
+
+    console.log('response.body', response.data);
+    expect(response.statusCode).toEqual(404);
+    expect(response.body.error).toEqual('Not found');
   });
 });
