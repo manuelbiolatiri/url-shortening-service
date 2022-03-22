@@ -4,7 +4,7 @@
 - Implement a URL shortening service like TinyURL. a URL shortening service like TinyURL. This service will provide short aliases redirecting to long URLs
 
 ## API Documentation
-- https://lilbiturl.herokuapp.com/docs
+- https://lilbiturl.herokuapp.com/api-docs
 
 ## Deployed App
 - https://lilbiturl.herokuapp.com
