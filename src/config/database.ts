@@ -1,6 +1,7 @@
 import { Connection, createConnection, getConnectionManager } from 'typeorm';
 import dotenv from 'dotenv';
 import { config } from './config';
+import { getOsPath, getOsPaths } from './env';
 
 // Init environment
 dotenv.config();
@@ -31,13 +32,13 @@ export const createDatabaseConnection = async (): Promise<Connection> => {
   const connection = await createConnection(
     Object.assign(options, {
       type: 'postgres',
-      migrations: ['src/migrations/**/*.ts'],
-      entities: ['src/models/**/*.ts'],
+      migrations: getOsPaths('TYPEORM_MIGRATIONS'),
+      entities: getOsPaths('TYPEORM_ENTITIES'),
       synchronize: false,
       logging: false,
       cli: {
-        migrationsDir: 'src/migrations',
-        entitiesDir: 'src/models',
+        migrationsDir: getOsPath('TYPEORM_MIGRATIONS_DIR'),
+        entitiesDir: getOsPath('TYPEORM_ENTITIES_DIR'),
       },
     }),
   );
