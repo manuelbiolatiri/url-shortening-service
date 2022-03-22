@@ -30,7 +30,6 @@ export const config = {
   app: {
     host: getOsEnv('APP_HOST'),
     scheme: getOsEnv('APP_SCHEME'),
-    routePrefix: getOsEnv('APP_ROUTE_PREFIX'),
     port: normalizePort(process.env.PORT || getOsEnv('APP_PORT')),
   },
   db: {

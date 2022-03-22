@@ -1,0 +1,120 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "URL Shortening Service",
+    "version": "1.0.0",
+    "description": "API docs"
+  },
+  "tags": [
+    {
+      "name": "domain",
+      "description": "domain API"
+    }
+  ],
+  "paths": {
+    "/domain/short": {
+      "post": {
+        "tags": ["domain"],
+        "summary": "Generate short url",
+        "requestBody": {
+          "description": "domain url",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/domain"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Bad request or Invalid data"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/domain/long": {
+      "post": {
+        "tags": ["domain"],
+        "summary": "Generate long url",
+        "requestBody": {
+          "description": "domain url",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/domain"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Bad request or Invalid data"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "get": {
+        "tags": ["lookup"],
+        "summary": "Lookup a domain",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Processed Url",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "302": {
+            "description": "Redirected"
+          },
+          "404": {
+            "description": "Domain not found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "domain": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "A valid url"
+        }
+      }
+    },
+    "lookup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Path id from a processedUrl"
+        }
+      }
+    }
+  }
+}

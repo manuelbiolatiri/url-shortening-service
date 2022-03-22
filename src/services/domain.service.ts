@@ -11,7 +11,10 @@ class DomainService {
 
     const repository = getRepository(Domain);
 
-    const findUrl = await repository.findOne({ url: payload.url });
+    const findUrl = await repository.findOne({
+      url: payload.url,
+      requestType: payload.type,
+    });
 
     if (findUrl) return findUrl;
 
